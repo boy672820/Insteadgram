@@ -7,6 +7,7 @@ import SearchTab from './AppTabNavigator/SearchTab';
 import AddMediaTab from './AppTabNavigator/AddMediaTab';
 import LikesTab from './AppTabNavigator/LikesTab';
 import ProfileTab from './AppTabNavigator/ProfileTab';
+import GiftTab from './AppTabNavigator/GiftTab';
 
 const AppTabNavigator = createMaterialTopTabNavigator(
 	{
@@ -15,6 +16,7 @@ const AppTabNavigator = createMaterialTopTabNavigator(
 		AddMediaTab: { screen: AddMediaTab },
 		LikesTab: { screen: LikesTab },
 		ProfileTab: { screen: ProfileTab },
+		GiftTab: { screen: GiftTab },
 	},
 	{
 		animationEnabled: true,
@@ -29,7 +31,7 @@ const AppTabNavigator = createMaterialTopTabNavigator(
 				} )
 			},
 			iconStyle: { height: 100 },
-			activeTintColor: '#000',
+			activeTintColor: 'red',
 			inactiveTintColor: '#d1cece',
 			upperCaseLabel: false,
 			showLabel: false,
