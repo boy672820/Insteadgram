@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { Icon, Container, Content, Header, Left, Body, Right, Button } from 'native-base';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
+
+const { width, height } = Dimensions.get( 'window' );
+
+let images = [
+	"https://cdn.pixabay.com/photo/2018/11/29/21/19/hamburg-3846525__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/11/11/16/51/ibis-3809147__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/11/23/14/19/forest-3833973__480.jpg",
+	"https://cdn.pixabay.com/photo/2019/01/05/17/05/man-3915438__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/12/04/22/38/road-3856796__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/11/04/20/21/harley-davidson-3794909__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/12/25/21/45/crystal-ball-photography-3894871__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/12/29/23/49/rays-3902368__480.jpg",
+	"https://cdn.pixabay.com/photo/2017/05/05/16/57/buzzard-2287699__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/08/06/16/30/mushroom-3587888__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/12/15/02/53/flower-3876195__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/12/16/18/12/open-fire-3879031__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/11/24/02/05/lichterkette-3834926__480.jpg",
+	"https://cdn.pixabay.com/photo/2018/11/29/19/29/autumn-3846345__480.jpg"
+];
 
 export default class ProfileTab extends Component {
 	static navigationOptions = {
@@ -20,6 +39,33 @@ export default class ProfileTab extends Component {
 		activeIndex: 0,
 		blogs: []
 	};
+
+	renderSection() {
+		if ( this.state.activeIndex === 0 ) {
+			return (
+				<View style={ { flexDirection: 'row', flexWrap: 'wrap' } }>
+					{ this.renderSectionOne() }
+				</View>
+			)
+		}
+	}
+
+	renderSectionOne() {
+		return images.map( ( image, index ) => {
+			return (
+				<View key={ index }
+					style={ { width: width/3, height: width/3 } }>
+					<Image source={ { url: image } } style={ { flex: 1 } } />
+				</View>
+			)
+		} );
+	}
+
+	segmentClicked( index ) {
+		this.setState( {
+			activeIndex: index
+		} );
+	}
 
 	fetchAccount( username ) {
 		const data = {
@@ -94,8 +140,6 @@ export default class ProfileTab extends Component {
 			followerCount
 		} = this.state;
 
-		console.log( [followingCount, followerCount] );
-
 		return (
 			<Container style={ { flex:1, backgroundColor: 'white' } }>
 				<Header>
@@ -137,13 +181,41 @@ export default class ProfileTab extends Component {
 							</View>
 						</View>
 					</View>
+
 					<View style={{paddingHorizontal:10, paddingVertical:10}}>
 						<Text style={{fontWeight:'bold'}}>{profile.name}</Text>
 						<Text>{profile.about}</Text>
 						<Text>{profile.website}</Text>
 					</View>
-				</Content>
 
+					<View style={{ flexDirection: 'row', justifyContent:'space-around', borderTopWidth:1, borderTopColor:'#eae5e5' }}>
+						<Button transparent
+								onPress={ () => this.segmentClicked( 0 ) }
+								active={ this.state.activeIndex === 0 }>
+							<Icon name='ios-apps'
+									style={ [ this.state.activeIndex === 0 ? {} : {color: 'grey' } ] } />
+						</Button>
+						<Button transparent
+								onPress={ () => this.segmentClicked( 1 ) }
+								active={ this.state.activeIndex === 1 }>
+							<Icon name='ios-list'
+									style={ [ this.state.activeIndex === 1 ? {} : {color: 'grey' } ] } />
+						</Button>
+						<Button transparent
+								onPress={ () => this.segmentClicked( 2 ) }
+								active={ this.state.activeIndex === 2 }>
+							<Icon name='ios-people'
+									style={ [ this.state.activeIndex === 2 ? {} : {color: 'grey' } ] } />
+						</Button>
+						<Button transparent
+								onPress={ () => this.segmentClicked( 3 ) }
+								active={ this.state.activeIndex === 3 }>
+							<Icon name='ios-bookmark'
+									style={ [ this.state.activeIndex === 3 ? {} : {color: 'grey' } ] } />
+						</Button>
+					</View>
+					{ this.renderSection() }
+				</Content>
 			</Container>
 		);
 	}
