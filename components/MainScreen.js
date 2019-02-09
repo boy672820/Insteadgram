@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Platform } from 'react-native';
 import { Icon } from 'native-base';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+
 import HomeTab from './AppTabNavigator/HomeTab';
 import SearchTab from './AppTabNavigator/SearchTab';
 import AddMediaTab from './AppTabNavigator/AddMediaTab';
@@ -24,14 +25,15 @@ const AppTabNavigator = createMaterialTopTabNavigator(
 		tabBarPosition: 'bottom',
 		tabBarOptions: {
 			style: {
+				backgroundColor: 'white'
+			},
+			iconStyle: {
 				...Platform.select( {
-					ios: {
-						backgroundColor: 'white',
-					}
+					height: 35,
+					marginBottom: 20
 				} )
 			},
-			iconStyle: { height: 100 },
-			activeTintColor: 'red',
+			activeTintColor: '#000',
 			inactiveTintColor: '#d1cece',
 			upperCaseLabel: false,
 			showLabel: false,
@@ -46,9 +48,7 @@ export default class MainScreen extends Component {
 
 	// Add code to navigationOptions
 	static navigationOptions = {
-		headerLeft: <Icon name='ios-camera' style={ { paddingLeft: 10 } } />,
-		title: 'Insteadgram',
-		headerRight: <Icon name='ios-send' style={ { paddingRight: 10 } } />,
+		header: null
 	};
 
 	render() {
